@@ -1,0 +1,1112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/ToG7rphO3qShZzsAEoAo9WEBmw7StNeY/b7ee028e-998c-4f58-912a-64766caf6b83/files/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studify AI — Study Smarter, Feel Great</title>
+<style>
+  :root{
+    --primary:#6C5CE7;
+    --primary-dark:#5849c2;
+    --accent:#00D2A0;
+    --bg:#F6F5FF;
+    --card:#ffffff;
+    --text:#2D2A4A;
+    --muted:#8b88a8;
+    --warn:#FFB020;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ overflow-x:hidden; scroll-behavior:smooth; }
+  .card{ scroll-margin-top:100px; }
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 8%),
+      radial-gradient(circle at 30% 12%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 7%),
+      radial-gradient(circle at 80% 8%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 9%),
+      radial-gradient(circle at 65% 22%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 6%),
+      linear-gradient(180deg, #8FD3F4 0%, #BFE9F5 30%, #E6F7FB 60%, #F6FBFF 100%);
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .cloud{
+    position:fixed; pointer-events:none; z-index:0; opacity:0.9;
+    filter:drop-shadow(0 6px 10px rgba(140,180,210,0.25));
+  }
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 40px;
+    background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(10px);
+    position:sticky; top:0; z-index:10;
+    border-bottom:1px solid rgba(255,255,255,0.6);
+    flex-wrap:wrap;
+    gap:10px;
+    row-gap:8px;
+  }
+  .logo{
+    font-size:1.5rem; font-weight:800;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo span{color:var(--primary);}
+  .logo .ai-badge{
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    color:white; font-size:0.7rem; padding:3px 8px; border-radius:20px;
+    font-weight:700; letter-spacing:0.5px;
+  }
+  nav{ display:flex; flex-wrap:wrap; align-items:center; }
+  nav a{
+    margin-left:24px; text-decoration:none; color:var(--text); font-weight:600; font-size:0.95rem;
+    transition:color .2s;
+  }
+  nav a:hover{color:var(--primary);}
+
+  .hero{
+    text-align:center; padding:60px 20px 40px; position:relative; z-index:1;
+  }
+  .hero h1{
+    font-size:2.6rem; font-weight:800; line-height:1.2;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p{
+    max-width:600px; margin:16px auto 0; color:var(--muted); font-size:1.1rem;
+  }
+
+  .container{
+    max-width:1100px; margin:0 auto; padding:0 20px 60px;
+    display:grid; grid-template-columns:1.3fr 1fr; gap:24px;
+    position:relative; z-index:1;
+  }
+  @media (max-width:850px){ .container{grid-template-columns:1fr;} }
+
+  /* ---------- Mobile-friendly adjustments ---------- */
+  @media (max-width:640px){
+    header{ padding:14px 18px; justify-content:center; text-align:center; }
+    .logo{ font-size:1.25rem; }
+    nav{ justify-content:center; width:100%; }
+    nav a{ margin:0 10px; font-size:0.85rem; }
+    #premiumNavBtn{ width:100%; margin-top:6px; }
+    .hero{ padding:36px 16px 24px; }
+    .hero h1{ font-size:1.7rem; }
+    .hero p{ font-size:0.95rem; }
+    .container{ padding:0 12px 40px; gap:16px; }
+    .card{ padding:18px; border-radius:16px; }
+    .timer-display{ font-size:3rem; }
+    .timer-modes{ gap:8px; }
+    .mode-btn{ padding:7px 12px; font-size:0.8rem; }
+    .timer-controls{ flex-direction:column; align-items:stretch; }
+    .btn{ width:100%; }
+    .stats-grid{ gap:8px; }
+    .stat-box{ padding:12px 6px; }
+    .stat-box .num{ font-size:1.4rem; }
+    .badges-grid{ grid-template-columns:repeat(3,1fr); }
+    .log-form{ flex-direction:column; }
+    .log-form input, .log-form button{ width:100%; }
+    .hw-grid{ grid-template-columns:repeat(3,minmax(70px,1fr)); }
+    .modal-box{ padding:22px; }
+    .price-tag{ font-size:1.8rem; }
+    .cloud{ display:none; }
+  }
+  @media (max-width:400px){
+    .badges-grid{ grid-template-columns:repeat(2,1fr); }
+    .hw-grid{ grid-template-columns:repeat(2,minmax(70px,1fr)); }
+  }
+
+  .card{
+    background:var(--card); border-radius:20px; padding:28px;
+    box-shadow:0 8px 30px rgba(108,92,231,0.08);
+    margin-bottom:24px;
+  }
+  .card h2{ font-size:1.3rem; margin-bottom:16px; }
+
+  /* Timer */
+  .timer-display{
+    font-size:4.5rem; font-weight:800; text-align:center; letter-spacing:2px;
+    color:var(--primary-dark); margin:10px 0 20px;
+    font-variant-numeric:tabular-nums;
+  }
+  .timer-modes{ display:flex; justify-content:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;}
+  .mode-btn{
+    padding:8px 16px; border-radius:30px; border:2px solid #E3E1FF; background:white;
+    cursor:pointer; font-weight:600; color:var(--text); transition:.2s;
+  }
+  .mode-btn.active, .mode-btn:hover{ background:var(--primary); color:white; border-color:var(--primary);}
+  .timer-controls{ display:flex; justify-content:center; gap:14px; }
+  .btn{
+    padding:12px 28px; border-radius:30px; border:none; font-weight:700; font-size:1rem;
+    cursor:pointer; transition:transform .15s, box-shadow .15s;
+  }
+  .btn-primary{ background:linear-gradient(135deg,var(--primary),#8a7bf0); color:white; box-shadow:0 6px 16px rgba(108,92,231,0.35);}
+  .btn-secondary{ background:#F0EEFF; color:var(--primary-dark); }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn:active{ transform:translateY(0); }
+
+  /* Stats */
+  .stats-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:10px;}
+  .stat-box{
+    background:linear-gradient(135deg,#F7F6FF,#EFF0FF); border-radius:14px; padding:16px; text-align:center;
+  }
+  .stat-box .num{ font-size:1.8rem; font-weight:800; color:var(--primary-dark);}
+  .stat-box .label{ font-size:0.8rem; color:var(--muted); margin-top:4px;}
+
+  /* Streak flame row */
+  .streak-row{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+  .flame{ font-size:1.6rem; }
+
+  /* Progress bar to next badge */
+  .progress-wrap{ margin-top:14px; }
+  .progress-bar-bg{ width:100%; height:12px; background:#EDEBFF; border-radius:10px; overflow:hidden;}
+  .progress-bar-fill{ height:100%; background:linear-gradient(90deg,var(--accent),var(--primary)); border-radius:10px; transition:width .4s; }
+  .progress-label{ font-size:0.8rem; color:var(--muted); margin-top:6px; }
+
+  /* Badges */
+  .badges-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .badge{
+    text-align:center; padding:14px 6px; border-radius:14px; background:#F7F6FF;
+    opacity:0.35; filter:grayscale(1); transition:.3s;
+  }
+  .badge.unlocked{ opacity:1; filter:none; background:linear-gradient(135deg,#FFF9EC,#FFF3D6); box-shadow:0 4px 14px rgba(255,176,32,0.25);}
+  .badge .icon{ font-size:1.8rem; }
+  .badge .name{ font-size:0.72rem; font-weight:700; margin-top:6px; }
+
+  /* Log */
+  .log-form{ display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .log-form input{
+    flex:1; padding:12px 14px; border-radius:12px; border:2px solid #E3E1FF; font-size:0.95rem; min-width:150px;
+  }
+  .log-form input:focus{ outline:none; border-color:var(--primary);}
+  .session-list{ list-style:none; max-height:220px; overflow-y:auto; }
+  .session-list li{
+    display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #F0EEFF; font-size:0.9rem;
+  }
+  .session-list li:last-child{ border-bottom:none; }
+  .tag{ color:var(--muted); font-size:0.8rem; }
+
+  /* Toast */
+  #toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(120px);
+    background:linear-gradient(135deg,var(--primary),var(--accent)); color:white; padding:16px 28px;
+    border-radius:16px; font-weight:700; box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    transition:transform .4s cubic-bezier(.2,1.4,.4,1); z-index:100; text-align:center; max-width:90%;
+  }
+  #toast.show{ transform:translateX(-50%) translateY(0); }
+
+  .quote-box{
+    text-align:center; font-style:italic; color:var(--primary-dark); padding:14px; background:#F7F6FF;
+    border-radius:14px; margin-top:10px; font-size:0.95rem;
+  }
+
+  footer{ text-align:center; padding:24px; color:var(--muted); font-size:0.85rem; }
+
+  /* Homework upload */
+  .upload-zone{
+    border:2px dashed #D8D4FF; border-radius:16px; padding:26px; text-align:center; cursor:pointer;
+    transition:.2s; background:#FBFAFF;
+  }
+  .upload-zone:hover{ border-color:var(--primary); background:#F5F3FF; }
+  .upload-zone input{ display:none; }
+  .hw-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:10px; margin-top:16px; }
+  .hw-item{ position:relative; border-radius:12px; overflow:hidden; aspect-ratio:1; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .hw-item.selected{ border-color:var(--primary); }
+  .hw-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hw-item .del{ position:absolute; top:2px; right:2px; background:rgba(0,0,0,0.55); color:white; border:none; border-radius:50%; width:20px; height:20px; font-size:0.7rem; cursor:pointer; line-height:1; }
+  .hw-item .name{ position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.55); color:white; font-size:0.6rem; padding:2px 4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  /* Study methods */
+  .methods-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media (max-width:600px){ .methods-grid{ grid-template-columns:1fr; } }
+  .method-card{
+    border-radius:16px; padding:18px; background:#F7F6FF; cursor:pointer; transition:.2s; position:relative;
+    border:2px solid transparent;
+  }
+  .method-card:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(108,92,231,0.15); }
+  .method-card.active-method{ border-color:var(--primary); background:#EFEBFF; }
+  .method-card .m-icon{ font-size:1.6rem; }
+  .method-card .m-name{ font-weight:700; margin-top:6px; font-size:0.95rem; }
+  .method-card .m-desc{ font-size:0.78rem; color:var(--muted); margin-top:4px; }
+  .premium-tag{
+    position:absolute; top:10px; right:10px; background:linear-gradient(135deg,#FFB020,#FF8C42); color:white;
+    font-size:0.62rem; font-weight:800; padding:3px 8px; border-radius:20px; letter-spacing:0.4px;
+  }
+  .method-card.locked{ opacity:0.75; }
+  .method-card.locked:hover{ opacity:1; }
+
+  .study-panel{ margin-top:20px; padding-top:16px; border-top:1px solid #F0EEFF; }
+  .flashcard{
+    background:linear-gradient(135deg,#fff,#F7F6FF); border-radius:16px; padding:30px 20px; text-align:center;
+    min-height:120px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:600;
+    cursor:pointer; box-shadow:0 6px 18px rgba(108,92,231,0.1); user-select:none;
+  }
+  .flash-controls{ display:flex; justify-content:center; gap:10px; margin-top:14px; }
+  .quiz-q{ font-weight:700; margin-bottom:12px; }
+  .quiz-opt{ display:block; width:100%; text-align:left; padding:12px 14px; margin-bottom:8px; border-radius:10px; border:2px solid #E3E1FF; background:white; cursor:pointer; font-size:0.9rem; }
+  .quiz-opt:hover{ border-color:var(--primary); }
+  .quiz-opt.correct{ border-color:var(--accent); background:#E9FFF7; }
+  .quiz-opt.wrong{ border-color:#FF6B6B; background:#FFECEC; }
+  textarea.summary-box{ width:100%; min-height:120px; padding:12px; border-radius:12px; border:2px solid #E3E1FF; font-family:inherit; font-size:0.9rem; resize:vertical; }
+
+  /* Premium modal */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(45,42,74,0.55); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; }
+  .modal-overlay.show{ display:flex; }
+  .modal-box{ background:white; border-radius:20px; padding:32px; max-width:420px; width:100%; text-align:center; position:relative; }
+  .modal-box .close-x{ position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.3rem; cursor:pointer; color:var(--muted); }
+  .price-tag{ font-size:2.2rem; font-weight:800; color:var(--primary-dark); margin:10px 0; }
+  .price-tag span{ font-size:1rem; font-weight:600; color:var(--muted); }
+  .perk-list{ text-align:left; margin:16px 0; list-style:none; }
+  .perk-list li{ padding:6px 0; font-size:0.9rem; }
+  .badge-premium-crown{ font-size:2.2rem; }
+</style>
+</head>
+<body>
+
+<svg class="cloud" style="top:6%; left:8%; width:120px;" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="38" rx="28" ry="18" fill="white"/><ellipse cx="55" cy="28" rx="22" ry="20" fill="white"/><ellipse cx="75" cy="38" rx="20" ry="16" fill="white"/></svg>
+<svg class="cloud" style="top:14%; right:10%; width:160px;" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="38" rx="28" ry="18" fill="white"/><ellipse cx="55" cy="28" rx="22" ry="20" fill="white"/><ellipse cx="75" cy="38" rx="20" ry="16" fill="white"/></svg>
+<svg class="cloud" style="top:32%; left:2%; width:90px; opacity:0.7;" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="38" rx="28" ry="18" fill="white"/><ellipse cx="55" cy="28" rx="22" ry="20" fill="white"/><ellipse cx="75" cy="38" rx="20" ry="16" fill="white"/></svg>
+
+<header>
+  <div class="logo"><span>Studify</span> AI <span class="ai-badge">AI</span></div>
+  <nav>
+    <a href="#timer">Focus Timer</a>
+    <a href="#progress">Progress</a>
+    <a href="#badges">Badges</a>
+    <a href="#log">Study Log</a>
+    <a href="#mystudies">My Studies</a>
+  </nav>
+  <button class="btn btn-primary" id="premiumNavBtn" style="padding:8px 18px; font-size:0.85rem;">✨ Go Premium</button>
+</header>
+
+<section class="hero">
+  <h1>Build study habits that stick 🌱</h1>
+  <p>Studify AI cheers you on with streaks, badges, and encouragement every time you sit down to focus. Small wins, every day.</p>
+</section>
+
+<div class="container">
+  <div>
+    <div class="card" id="timer">
+      <h2>🎯 Focus Timer</h2>
+      <div class="timer-modes">
+        <button class="mode-btn active" data-min="25">25 min · Focus</button>
+        <button class="mode-btn" data-min="15">15 min · Short</button>
+        <button class="mode-btn" data-min="50">50 min · Deep Work</button>
+        <button class="mode-btn" data-min="5">5 min · Break</button>
+      </div>
+      <div class="timer-display" id="timerDisplay">25:00</div>
+      <div class="timer-controls">
+        <button class="btn btn-primary" id="startBtn">Start Studying</button>
+        <button class="btn btn-secondary" id="resetBtn">Reset</button>
+      </div>
+      <div class="quote-box" id="quoteBox">"Every focused minute is a deposit into your future self." ✨</div>
+    </div>
+
+    <div class="card" id="homework">
+      <h2>📷 Homework Photos</h2>
+      <label class="upload-zone" for="hwInput">
+        <div style="font-size:1.8rem;">📎</div>
+        <div style="font-weight:700; margin-top:6px;">Click to upload a photo of your homework/notes</div>
+        <div class="tag">JPG, PNG — stored privately in your browser</div>
+        <input type="file" id="hwInput" accept="image/*" multiple>
+      </label>
+      <div class="hw-grid" id="hwGrid"></div>
+      <div class="tag" id="hwSelectedTag" style="margin-top:10px; display:block;">Select a photo above, then pick a study method below to study it.</div>
+    </div>
+
+    <div class="card" id="methods">
+      <h2>🧠 Study Methods</h2>
+      <div id="usageBanner" class="quote-box" style="margin-bottom:16px; margin-top:0;"></div>
+      <div class="methods-grid">
+        <div class="method-card active-method" data-method="flashcards">
+          <div class="m-icon">🗂️</div>
+          <div class="m-name">Flashcards</div>
+          <div class="m-desc">Flip through self-made cards for active recall.</div>
+        </div>
+        <div class="method-card" data-method="quiz">
+          <div class="m-icon">❓</div>
+          <div class="m-name">Practice Quiz</div>
+          <div class="m-desc">Test yourself with quick multiple choice questions.</div>
+        </div>
+        <div class="method-card" data-method="summary">
+          <div class="m-icon">📝</div>
+          <div class="m-name">Summarize & Teach</div>
+          <div class="m-desc">Write it in your own words — the Feynman technique.</div>
+        </div>
+        <div class="method-card locked" data-method="ai-flashcards" data-premium="true">
+          <span class="premium-tag">PREMIUM</span>
+          <div class="m-icon">✨</div>
+          <div class="m-name">AI Flashcards from Photo</div>
+          <div class="m-desc">Auto-generate flashcards straight from your homework photo.</div>
+        </div>
+        <div class="method-card locked" data-method="spaced-rep" data-premium="true">
+          <span class="premium-tag">PREMIUM</span>
+          <div class="m-icon">📅</div>
+          <div class="m-name">Spaced Repetition Planner</div>
+          <div class="m-desc">Smart review schedule that adapts to what you forget.</div>
+        </div>
+      </div>
+
+      <div class="study-panel" id="studyPanel"></div>
+    </div>
+
+    <div class="card" id="mystudies">
+      <h2>📈 My Studies</h2>
+      <p class="tag" style="display:block; margin-bottom:12px;">A running view of what you've studied and how far you've gotten — pick any item up right where you left off.</p>
+      <ul class="session-list" id="myStudiesList"></ul>
+    </div>
+
+    <div class="card" id="log">
+      <h2>📝 Study Log</h2>
+      <div class="log-form">
+        <input type="text" id="subjectInput" placeholder="What did you study? (e.g. Biology)">
+        <button class="btn btn-primary" id="logBtn">Log Session</button>
+      </div>
+      <ul class="session-list" id="sessionList">
+        <li><span class="tag">No sessions yet — your log will appear here!</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <div class="card" id="progress">
+      <h2>📊 Your Progress</h2>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="num" id="pointsNum">0</div><div class="label">Points</div></div>
+        <div class="stat-box"><div class="num" id="sessionsNum">0</div><div class="label">Sessions</div></div>
+        <div class="stat-box"><div class="num" id="minutesNum">0</div><div class="label">Minutes</div></div>
+      </div>
+      <div class="streak-row">
+        <span class="flame">🔥</span>
+        <strong><span id="streakNum">0</span>-day streak</strong>
+        <span class="tag" style="margin-left:auto" id="bestStreakTag">Best: 0</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+        <div class="progress-label" id="progressLabel">Earn points to unlock your next badge!</div>
+      </div>
+    </div>
+
+    <div class="card" id="badges">
+      <h2>🏆 Badges</h2>
+      <div class="badges-grid" id="badgesGrid"></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<div class="modal-overlay" id="premiumModal">
+  <div class="modal-box">
+    <button class="close-x" id="closeModal">✕</button>
+    <div class="badge-premium-crown">👑</div>
+    <h2>Studify AI Premium</h2>
+    <div class="price-tag">$2.99<span>/month</span></div>
+    <ul class="perk-list">
+      <li>✨ <strong>AI Flashcards from Photo</strong> — auto-generate cards from any homework photo</li>
+      <li>📅 <strong>Spaced Repetition Planner</strong> — smart review schedule that adapts to you</li>
+      <li>🔥 Bonus streak-saver — one skip day per month</li>
+      <li>🚫 No ads, ever</li>
+    </ul>
+    <button class="btn btn-primary" id="subscribeBtn" style="width:100%;">Subscribe for $2.99/mo</button>
+    <p class="tag" style="margin-top:12px; display:block;">Demo mode: this simulates a subscription locally. Connect a payment processor (e.g. Stripe) to charge real cards.</p>
+  </div>
+</div>
+
+<footer>Studify AI · Keep going — you're doing better than you think. 💜</footer>
+
+<script>
+  // ---------- State ----------
+  const STORAGE_KEY = 'studifyAI_state_v1';
+  const BADGES = [
+    {id:'first', icon:'🌱', name:'First Step', threshold:1, type:'sessions'},
+    {id:'fivepoints', icon:'⭐', name:'Rising Star', threshold:50, type:'points'},
+    {id:'streak3', icon:'🔥', name:'3-Day Streak', threshold:3, type:'streak'},
+    {id:'tensessions', icon:'📚', name:'Bookworm', threshold:10, type:'sessions'},
+    {id:'hundred', icon:'💎', name:'Century Club', threshold:100, type:'points'},
+    {id:'streak7', icon:'🏅', name:'Weekly Warrior', threshold:7, type:'streak'},
+    {id:'300', icon:'👑', name:'Study Royalty', threshold:300, type:'points'},
+    {id:'streak30', icon:'🚀', name:'Unstoppable', threshold:30, type:'streak'},
+  ];
+  const QUOTES = [
+    "Every focused minute is a deposit into your future self. ✨",
+    "Progress, not perfection. You've got this! 💪",
+    "Small steps daily lead to big results. 🌟",
+    "Your brain is getting stronger right now. 🧠",
+    "Consistency beats intensity. Keep showing up! 🔥",
+    "Future you is going to thank you for this. 🙌",
+    "Focus is a superpower — you're using it well. ⚡",
+    "You don't have to be perfect, just persistent. 🌱",
+  ];
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return {
+      points:0, sessions:0, minutes:0,
+      streak:0, bestStreak:0, lastStudyDate:null,
+      unlockedBadges:[], log:[],
+      premium:false, homework:[], flashcards:[],
+      progress:{ flashIndex:{}, summaryDrafts:{}, quizStats:{}, lastActive:{} },
+      usage:{ windowStart: Date.now(), count: 0 }
+    };
+  }
+  function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+  let state = loadState();
+  if(!state.progress) state.progress = { flashIndex:{}, summaryDrafts:{}, quizStats:{}, lastActive:{} };
+  if(!state.progress.lastActive) state.progress.lastActive = {};
+  if(!state.usage) state.usage = { windowStart: Date.now(), count: 0 };
+
+  // ---------- Timer ----------
+  let selectedMinutes = 25;
+  let remainingSeconds = selectedMinutes*60;
+  let timerInterval = null;
+  let running = false;
+
+  const timerDisplay = document.getElementById('timerDisplay');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const modeBtns = document.querySelectorAll('.mode-btn');
+
+  function formatTime(s){
+    const m = Math.floor(s/60).toString().padStart(2,'0');
+    const sec = (s%60).toString().padStart(2,'0');
+    return `${m}:${sec}`;
+  }
+  function renderTimer(){ timerDisplay.textContent = formatTime(remainingSeconds); }
+
+  modeBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(running) return;
+      modeBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedMinutes = parseInt(btn.dataset.min);
+      remainingSeconds = selectedMinutes*60;
+      renderTimer();
+    });
+  });
+
+  startBtn.addEventListener('click', ()=>{
+    if(running){
+      // pause
+      clearInterval(timerInterval);
+      running = false;
+      startBtn.textContent = 'Resume';
+      return;
+    }
+    running = true;
+    startBtn.textContent = 'Pause';
+    timerInterval = setInterval(()=>{
+      remainingSeconds--;
+      renderTimer();
+      if(remainingSeconds<=0){
+        clearInterval(timerInterval);
+        running = false;
+        startBtn.textContent = 'Start Studying';
+        completeSession(selectedMinutes);
+        remainingSeconds = selectedMinutes*60;
+        renderTimer();
+      }
+    },1000);
+  });
+
+  resetBtn.addEventListener('click', ()=>{
+    clearInterval(timerInterval);
+    running = false;
+    startBtn.textContent = 'Start Studying';
+    remainingSeconds = selectedMinutes*60;
+    renderTimer();
+  });
+
+  // ---------- Session / Streak logic ----------
+  function todayStr(){ return new Date().toISOString().slice(0,10); }
+
+  function updateStreak(){
+    const today = todayStr();
+    if(state.lastStudyDate === today) return; // already counted today
+    const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+    if(state.lastStudyDate === yesterday){
+      state.streak += 1;
+    } else {
+      state.streak = 1;
+    }
+    state.lastStudyDate = today;
+    state.bestStreak = Math.max(state.bestStreak, state.streak);
+  }
+
+  function completeSession(minutes, subject){
+    updateStreak();
+    const earned = Math.round(minutes*1.5);
+    state.points += earned;
+    state.sessions += 1;
+    state.minutes += minutes;
+    state.log.unshift({subject: subject || 'Focus session', minutes, date:new Date().toLocaleString(), points:earned});
+    state.log = state.log.slice(0,30);
+    saveState();
+    renderAll();
+    showToast(`🎉 +${earned} points! Session complete. ${pickQuote()}`);
+    checkBadges();
+  }
+
+  function logManualSession(){
+    const input = document.getElementById('subjectInput');
+    const subject = input.value.trim();
+    if(!subject){ showToast('Type what you studied first! 📝'); return; }
+    completeSession(25, subject);
+    input.value='';
+  }
+  document.getElementById('logBtn').addEventListener('click', logManualSession);
+  document.getElementById('subjectInput').addEventListener('keydown', e=>{ if(e.key==='Enter') logManualSession(); });
+
+  function pickQuote(){
+    return QUOTES[Math.floor(Math.random()*QUOTES.length)];
+  }
+
+  function checkBadges(){
+    BADGES.forEach(b=>{
+      if(state.unlockedBadges.includes(b.id)) return;
+      let val = b.type==='points'?state.points : b.type==='sessions'?state.sessions : state.streak;
+      if(val >= b.threshold){
+        state.unlockedBadges.push(b.id);
+        saveState();
+        setTimeout(()=>showToast(`🏆 Badge unlocked: ${b.name}!`), 1200);
+      }
+    });
+  }
+
+  // ---------- Toast ----------
+  let toastTimeout;
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(()=>t.classList.remove('show'), 3500);
+  }
+
+  // ---------- Render ----------
+  function renderStats(){
+    document.getElementById('pointsNum').textContent = state.points;
+    document.getElementById('sessionsNum').textContent = state.sessions;
+    document.getElementById('minutesNum').textContent = state.minutes;
+    document.getElementById('streakNum').textContent = state.streak;
+    document.getElementById('bestStreakTag').textContent = `Best: ${state.bestStreak}`;
+  }
+
+  function renderProgress(){
+    // find next locked badge by points
+    const lockedPointBadges = BADGES.filter(b=>b.type==='points' && !state.unlockedBadges.includes(b.id))
+      .sort((a,b)=>a.threshold-b.threshold);
+    const next = lockedPointBadges[0];
+    const fill = document.getElementById('progressFill');
+    const label = document.getElementById('progressLabel');
+    if(next){
+      const prevThreshold = BADGES.filter(b=>b.type==='points' && state.unlockedBadges.includes(b.id))
+        .reduce((max,b)=>Math.max(max,b.threshold),0);
+      const pct = Math.min(100, ((state.points-prevThreshold)/(next.threshold-prevThreshold))*100);
+      fill.style.width = pct+'%';
+      label.textContent = `${state.points} / ${next.threshold} points to "${next.name}" ${next.icon}`;
+    } else {
+      fill.style.width = '100%';
+      label.textContent = "You've unlocked every point badge! Legendary. 👑";
+    }
+  }
+
+  function renderBadges(){
+    const grid = document.getElementById('badgesGrid');
+    grid.innerHTML = '';
+    BADGES.forEach(b=>{
+      const unlocked = state.unlockedBadges.includes(b.id);
+      const div = document.createElement('div');
+      div.className = 'badge' + (unlocked?' unlocked':'');
+      div.innerHTML = `<div class="icon">${b.icon}</div><div class="name">${b.name}</div>`;
+      grid.appendChild(div);
+    });
+  }
+
+  function renderLog(){
+    const list = document.getElementById('sessionList');
+    if(state.log.length===0){
+      list.innerHTML = '<li><span class="tag">No sessions yet — your log will appear here!</span></li>';
+      return;
+    }
+    list.innerHTML = state.log.map(item=>`
+      <li>
+        <span><strong>${item.subject}</strong> · ${item.minutes} min</span>
+        <span class="tag">${item.date} · +${item.points}pts</span>
+      </li>
+    `).join('');
+  }
+
+  function renderAll(){
+    renderStats();
+    renderProgress();
+    renderBadges();
+    renderLog();
+    renderMyStudies();
+    renderUsageBanner();
+  }
+
+  function renderMyStudies(){
+    const list = document.getElementById('myStudiesList');
+    if(!list) return;
+    const groups = [{ id:null, label:'📚 General (no photo)' }, ...state.homework.map(h=>({ id:h.id, label:'📷 '+h.name }))];
+    const rows = groups.map(g=>{
+      const key = g.id || 'all';
+      const cardCount = state.flashcards.filter(c=> (c.hwId||null) === g.id).length;
+      const flashProgress = state.progress.flashIndex[key];
+      const quiz = state.progress.quizStats[key];
+      const summaries = (state.progress.savedSummaries && state.progress.savedSummaries[key]) ? state.progress.savedSummaries[key].length : 0;
+      const hasActivity = cardCount>0 || quiz || summaries>0 || flashProgress!==undefined;
+      if(!hasActivity) return null;
+      const bits = [];
+      if(cardCount>0) bits.push(`🗂️ ${flashProgress!==undefined? (flashProgress+1):1}/${cardCount} cards`);
+      if(quiz && quiz.total>0) bits.push(`❓ ${quiz.correct}/${quiz.total} quiz correct`);
+      if(summaries>0) bits.push(`📝 ${summaries} summary(ies)`);
+      return `<li>
+        <span><strong>${g.label}</strong><br><span class="tag">${bits.join(' · ') || 'Not started yet'}</span></span>
+        <button class="btn btn-secondary" data-resume-hw="${g.id||''}" style="padding:6px 14px; font-size:0.8rem;">Resume</button>
+      </li>`;
+    }).filter(Boolean);
+    list.innerHTML = rows.length ? rows.join('') : '<li><span class="tag">Nothing studied yet — start a session above and it will show up here!</span></li>';
+    list.querySelectorAll('[data-resume-hw]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.dataset.resumeHw;
+        selectedHwId = id || null;
+        renderHomework();
+        if(selectedHwId){
+          const hw = state.homework.find(h=>h.id===selectedHwId);
+          if(hw) document.getElementById('hwSelectedTag').textContent = `Studying: ${hw.name} — pick a method below 👇`;
+        } else {
+          document.getElementById('hwSelectedTag').textContent = 'Select a photo above, then pick a study method below to study it.';
+        }
+        const key = selectedHwId || 'all';
+        let methodToOpen = 'flashcards';
+        if(state.progress.quizStats[key] && state.progress.quizStats[key].total>0) methodToOpen = 'quiz';
+        if(state.progress.savedSummaries && state.progress.savedSummaries[key] && state.progress.savedSummaries[key].length>0) methodToOpen = 'summary';
+        if(state.progress.flashIndex[key]!==undefined) methodToOpen = 'flashcards';
+        openMethod(methodToOpen);
+        document.getElementById('methods').scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  }
+
+  // ---------- Homework Upload ----------
+  let selectedHwId = null;
+  const hwInput = document.getElementById('hwInput');
+  hwInput.addEventListener('change', (e)=>{
+    const files = Array.from(e.target.files);
+    files.forEach(file=>{
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        state.homework.push({ id: 'hw_'+Date.now()+Math.random().toString(36).slice(2,7), name:file.name, dataUrl: reader.result });
+        saveState();
+        renderHomework();
+      };
+      reader.readAsDataURL(file);
+    });
+    hwInput.value = '';
+  });
+
+  function renderHomework(){
+    const grid = document.getElementById('hwGrid');
+    grid.innerHTML = state.homework.map(hw=>`
+      <div class="hw-item ${hw.id===selectedHwId?'selected':''}" data-id="${hw.id}">
+        <img src="${hw.dataUrl}" alt="${hw.name}">
+        <button class="del" data-del="${hw.id}">✕</button>
+        <div class="name">${hw.name}</div>
+      </div>
+    `).join('');
+    grid.querySelectorAll('.hw-item').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        if(e.target.dataset.del) return;
+        selectedHwId = el.dataset.id;
+        renderHomework();
+        const hw = state.homework.find(h=>h.id===selectedHwId);
+        document.getElementById('hwSelectedTag').textContent = `Studying: ${hw.name} — pick a method below 👇`;
+      });
+    });
+    grid.querySelectorAll('[data-del]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const id = btn.dataset.del;
+        state.homework = state.homework.filter(h=>h.id!==id);
+        if(selectedHwId===id) selectedHwId = null;
+        saveState();
+        renderHomework();
+      });
+    });
+  }
+
+  // ---------- Study Methods ----------
+  let currentMethod = null; // null = no method open (exited state)
+  const methodCards = document.querySelectorAll('.method-card');
+  methodCards.forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const isPremium = card.dataset.premium === 'true';
+      if(isPremium && !state.premium){
+        openPremiumModal();
+        return;
+      }
+      openMethod(card.dataset.method);
+    });
+  });
+
+  function scopeKey(){ return selectedHwId || 'all'; }
+
+  function methodCardEl(method){
+    return document.querySelector(`.method-card[data-method="${method}"]`);
+  }
+
+  function openMethod(method){
+    saveCurrentDraft(); // persist whatever was in progress before switching
+    methodCards.forEach(c=>c.classList.remove('active-method'));
+    const card = methodCardEl(method);
+    if(card) card.classList.add('active-method');
+    currentMethod = method;
+    state.progress.lastActive[method] = Date.now();
+    saveState();
+    renderStudyPanel();
+  }
+
+  function exitMethod(){
+    saveCurrentDraft();
+    currentMethod = null;
+    methodCards.forEach(c=>c.classList.remove('active-method'));
+    renderStudyPanel();
+    showToast('💾 Progress saved! Jump back in anytime.');
+  }
+
+  // Saves any in-progress, unsaved input (e.g. a half-typed summary) before leaving a method
+  function saveCurrentDraft(){
+    if(currentMethod==='summary'){
+      const box = document.getElementById('summaryText');
+      if(box) state.progress.summaryDrafts[scopeKey()] = box.value;
+      saveState();
+    }
+  }
+
+  function exitButtonHtml(){
+    return `<button class="btn btn-secondary" id="exitMethodBtn" style="float:right;">← Exit</button>`;
+  }
+
+  function currentDeck(){
+    if(!selectedHwId) return state.flashcards;
+    return state.flashcards.filter(c=>c.hwId===selectedHwId);
+  }
+
+  function renderStudyPanel(){
+    const panel = document.getElementById('studyPanel');
+    if(currentMethod===null){
+      panel.innerHTML = `<p class="tag">Pick a study method above to begin. Your progress is always saved, so you can exit and resume anytime. 📚</p>`;
+      return;
+    }
+    if(currentMethod==='flashcards'){
+      renderFlashcardMethod(panel);
+    } else if(currentMethod==='quiz'){
+      renderQuizMethod(panel);
+    } else if(currentMethod==='summary'){
+      renderSummaryMethod(panel);
+    } else if(currentMethod==='ai-flashcards'){
+      renderAiFlashcardMethod(panel);
+    } else if(currentMethod==='spaced-rep'){
+      renderSpacedRepMethod(panel);
+    }
+    const exitBtn = document.getElementById('exitMethodBtn');
+    if(exitBtn) exitBtn.addEventListener('click', exitMethod);
+  }
+
+  let flashShowBack = false;
+
+  function renderFlashcardMethod(panel){
+    const deck = currentDeck();
+    const key = scopeKey();
+    let flashIndex = state.progress.flashIndex[key] || 0;
+    if(flashIndex>=deck.length) flashIndex = 0;
+    panel.innerHTML = `
+      ${exitButtonHtml()}
+      <h3 style="margin-bottom:10px;">🗂️ Flashcards ${selectedHwId? '(for selected photo)':'(all)'}</h3>
+      <div class="log-form">
+        <input type="text" id="cardFront" placeholder="Question / term">
+        <input type="text" id="cardBack" placeholder="Answer / definition">
+        <button class="btn btn-secondary" id="addCardBtn">Add Card</button>
+      </div>
+      ${deck.length===0 ? '<p class="tag">No cards yet — add one above to start studying!</p>' : `
+      <div class="flashcard" id="flashcardBox">${flashShowBack? deck[flashIndex].back : deck[flashIndex].front}</div>
+      <div class="flash-controls">
+        <button class="btn btn-secondary" id="prevCard">← Prev</button>
+        <button class="btn btn-primary" id="flipCard">Flip</button>
+        <button class="btn btn-secondary" id="nextCard">Next →</button>
+      </div>
+      <p class="tag" style="text-align:center; margin-top:8px;">Card ${flashIndex+1} / ${deck.length} · progress saved automatically</p>
+      <div style="text-align:center; margin-top:10px;">
+        <button class="btn btn-primary" id="finishFlash">I studied these! (+10 pts)</button>
+      </div>
+      `}
+    `;
+    document.getElementById('addCardBtn').addEventListener('click', ()=>{
+      const f = document.getElementById('cardFront').value.trim();
+      const b = document.getElementById('cardBack').value.trim();
+      if(!f || !b){ showToast('Fill in both sides of the card! 🗂️'); return; }
+      state.flashcards.push({front:f, back:b, hwId:selectedHwId});
+      saveState();
+      renderFlashcardMethod(panel);
+    });
+    if(deck.length>0){
+      const setIndex = (i)=>{ state.progress.flashIndex[key] = i; saveState(); renderFlashcardMethod(panel); };
+      document.getElementById('flashcardBox').addEventListener('click', ()=>{ flashShowBack=!flashShowBack; renderFlashcardMethod(panel); });
+      document.getElementById('flipCard').addEventListener('click', ()=>{ flashShowBack=!flashShowBack; renderFlashcardMethod(panel); });
+      document.getElementById('prevCard').addEventListener('click', ()=> setIndex((flashIndex-1+deck.length)%deck.length));
+      document.getElementById('nextCard').addEventListener('click', ()=> setIndex((flashIndex+1)%deck.length));
+      document.getElementById('finishFlash').addEventListener('click', ()=> awardStudyPoints('Flashcards', 10));
+    }
+  }
+
+  function getQuizStats(key){
+    if(!state.progress.quizStats[key]) state.progress.quizStats[key] = {correct:0, total:0};
+    return state.progress.quizStats[key];
+  }
+
+  function renderQuizMethod(panel){
+    const deck = currentDeck();
+    const key = scopeKey();
+    const stats = getQuizStats(key);
+    if(deck.length<2){
+      panel.innerHTML = `${exitButtonHtml()}<h3>❓ Practice Quiz</h3><p class="tag">Add at least 2 flashcards first — the quiz is built from them!</p>`;
+      return;
+    }
+    const q = deck[Math.floor(Math.random()*deck.length)];
+    let options = [q.back];
+    while(options.length<Math.min(4,deck.length)){
+      const rand = deck[Math.floor(Math.random()*deck.length)].back;
+      if(!options.includes(rand)) options.push(rand);
+    }
+    options.sort(()=>Math.random()-0.5);
+    panel.innerHTML = `
+      ${exitButtonHtml()}
+      <h3 style="margin-bottom:10px;">❓ Practice Quiz</h3>
+      <p class="tag" style="display:block; margin-bottom:8px;">Score so far: ${stats.correct}/${stats.total} correct</p>
+      <div class="quiz-q">${q.front}</div>
+      ${options.map(o=>`<button class="quiz-opt" data-correct="${o===q.back}">${o}</button>`).join('')}
+      <div style="text-align:center; margin-top:14px;"><button class="btn btn-secondary" id="nextQuiz">Next Question</button></div>
+    `;
+    panel.querySelectorAll('.quiz-opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const correct = btn.dataset.correct==='true';
+        panel.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);
+        btn.classList.add(correct?'correct':'wrong');
+        stats.total += 1;
+        if(correct){ stats.correct += 1; saveState(); awardStudyPoints('Quiz', 8); }
+        else { saveState(); showToast('Not quite — review that card and try again! 💪'); }
+      });
+    });
+    document.getElementById('nextQuiz').addEventListener('click', ()=>renderQuizMethod(panel));
+  }
+
+  function renderSummaryMethod(panel){
+    const key = scopeKey();
+    const draft = state.progress.summaryDrafts[key] || '';
+    panel.innerHTML = `
+      ${exitButtonHtml()}
+      <h3 style="margin-bottom:10px;">📝 Summarize & Teach (Feynman Technique)</h3>
+      <p class="tag" style="margin-bottom:8px; display:block;">Explain what you learned in your own words, like you're teaching a friend.</p>
+      <textarea class="summary-box" id="summaryText" placeholder="Today I learned...">${draft}</textarea>
+      <div style="text-align:center; margin-top:12px;">
+        <button class="btn btn-primary" id="saveSummary">Save Summary (+12 pts)</button>
+      </div>
+    `;
+    const box = document.getElementById('summaryText');
+    box.addEventListener('input', ()=>{ state.progress.summaryDrafts[key] = box.value; saveState(); });
+    document.getElementById('saveSummary').addEventListener('click', ()=>{
+      const text = box.value.trim();
+      if(text.length<10){ showToast('Write a bit more detail first! ✍️'); return; }
+      if(!state.progress.savedSummaries) state.progress.savedSummaries = {};
+      if(!state.progress.savedSummaries[key]) state.progress.savedSummaries[key] = [];
+      state.progress.savedSummaries[key].push({text, date:new Date().toLocaleString()});
+      state.progress.summaryDrafts[key] = '';
+      awardStudyPoints('Summary', 12, text.slice(0,60)+(text.length>60?'…':''));
+      box.value='';
+    });
+  }
+
+  function renderAiFlashcardMethod(panel){
+    const hw = state.homework.find(h=>h.id===selectedHwId);
+    panel.innerHTML = `
+      ${exitButtonHtml()}
+      <h3 style="margin-bottom:10px;">✨ AI Flashcards from Photo <span class="premium-tag" style="position:static; display:inline-block;">PREMIUM</span></h3>
+      ${!hw ? '<p class="tag">Select a homework photo above first, then generate cards from it.</p>' : `
+      <p class="tag" style="display:block; margin-bottom:10px;">Photo: ${hw.name}</p>
+      <input type="text" id="aiTopic" class="summary-box" style="min-height:auto; padding:12px;" placeholder="Briefly describe the topic/content in this photo (e.g. 'Cell mitosis stages')">
+      <div style="text-align:center; margin-top:12px;">
+        <button class="btn btn-primary" id="genAiCards">Generate 5 Flashcards ✨</button>
+      </div>
+      `}
+    `;
+    if(hw){
+      document.getElementById('genAiCards').addEventListener('click', ()=>{
+        const topic = document.getElementById('aiTopic').value.trim() || 'this topic';
+        const templates = [
+          [`What is the main idea of ${topic}?`, `The core concept covered in your notes on ${topic}.`],
+          [`Define a key term from ${topic}.`, `Write the definition from your homework photo here.`],
+          [`Give one example related to ${topic}.`, `An example pulled from your notes.`],
+          [`Why does ${topic} matter?`, `The significance / real-world application.`],
+          [`Summarize ${topic} in one sentence.`, `A one-line takeaway from your homework.`],
+        ];
+        templates.forEach(([f,b])=> state.flashcards.push({front:f, back:b, hwId:hw.id}));
+        saveState();
+        showToast('✨ 5 AI flashcards generated! Head to Flashcards to study them.');
+        awardStudyPoints('AI Flashcards', 15);
+      });
+    }
+  }
+
+  function renderSpacedRepMethod(panel){
+    const deck = state.flashcards;
+    const days = ['Today','+1 day','+3 days','+7 days','+14 days','+30 days'];
+    panel.innerHTML = `
+      ${exitButtonHtml()}
+      <h3 style="margin-bottom:10px;">📅 Spaced Repetition Planner <span class="premium-tag" style="position:static; display:inline-block;">PREMIUM</span></h3>
+      ${deck.length===0? '<p class="tag">Add some flashcards first, then we\'ll build your optimal review schedule.</p>' : `
+      <p class="tag" style="display:block; margin-bottom:10px;">Based on the forgetting curve, review your ${deck.length} card(s) on these days:</p>
+      <ul class="session-list">
+        ${days.map(d=>`<li><span>📆 ${d}</span><span class="tag">Review all ${deck.length} cards</span></li>`).join('')}
+      </ul>
+      <div style="text-align:center; margin-top:12px;">
+        <button class="btn btn-primary" id="confirmPlan">Start This Plan (+10 pts)</button>
+      </div>
+      `}
+    `;
+    if(deck.length>0){
+      document.getElementById('confirmPlan').addEventListener('click', ()=> awardStudyPoints('Spaced Repetition Plan', 10));
+    }
+  }
+
+  const DAILY_FREE_LIMIT = 2;
+  const DAY_MS = 24*60*60*1000;
+
+  function refreshUsageWindow(){
+    if(Date.now() - state.usage.windowStart >= DAY_MS){
+      state.usage.windowStart = Date.now();
+      state.usage.count = 0;
+      saveState();
+    }
+  }
+
+  function usageRemaining(){
+    refreshUsageWindow();
+    return Math.max(0, DAILY_FREE_LIMIT - state.usage.count);
+  }
+
+  function usageResetInHours(){
+    const msLeft = DAY_MS - (Date.now() - state.usage.windowStart);
+    return Math.max(0, Math.ceil(msLeft/3600000));
+  }
+
+  function canStartStudySession(){
+    if(state.premium) return true;
+    return usageRemaining() > 0;
+  }
+
+  function renderUsageBanner(){
+    const el = document.getElementById('usageBanner');
+    if(!el) return;
+    if(state.premium){
+      el.textContent = '👑 Premium active — unlimited study sessions every day!';
+      el.style.background = 'linear-gradient(135deg,#FFF9EC,#FFF3D6)';
+      el.style.color = 'var(--primary-dark)';
+      return;
+    }
+    const remaining = usageRemaining();
+    el.style.background = '#F7F6FF';
+    if(remaining>0){
+      el.textContent = `⏳ ${remaining} of ${DAILY_FREE_LIMIT} free study session${DAILY_FREE_LIMIT>1?'s':''} left today. Upgrade to Premium for unlimited studying ✨`;
+    } else {
+      el.textContent = `🔒 You've used all ${DAILY_FREE_LIMIT} free study sessions today. Come back in ${usageResetInHours()}h, or go Premium for unlimited access ✨`;
+    }
+  }
+
+  function awardStudyPoints(label, pts, note){
+    if(!canStartStudySession()){
+      showToast(`⏳ You've used your ${DAILY_FREE_LIMIT} free study sessions for today. Upgrade to Premium for unlimited studying!`);
+      openPremiumModal();
+      return;
+    }
+    if(!state.premium){
+      refreshUsageWindow();
+      state.usage.count += 1;
+    }
+    updateStreak();
+    state.points += pts;
+    state.sessions += 1;
+    state.log.unshift({subject: note? `${label}: ${note}` : label, minutes:0, date:new Date().toLocaleString(), points:pts});
+    state.log = state.log.slice(0,30);
+    saveState();
+    renderAll();
+    renderUsageBanner();
+    if(!state.premium && usageRemaining()===0){
+      setTimeout(()=>showToast(`🎉 +${pts} points! That was your last free session today — come back in ${usageResetInHours()}h or go Premium for unlimited access.`), 200);
+    } else {
+      showToast(`🎉 +${pts} points! ${pickQuote()}`);
+    }
+    checkBadges();
+  }
+
+  // ---------- Premium ----------
+  const premiumModal = document.getElementById('premiumModal');
+  function openPremiumModal(){ premiumModal.classList.add('show'); }
+  function closePremiumModal(){ premiumModal.classList.remove('show'); }
+  document.getElementById('premiumNavBtn').addEventListener('click', ()=>{
+    if(state.premium){ showToast('✨ You\'re already Premium! Enjoy all study methods.'); return; }
+    openPremiumModal();
+  });
+  document.getElementById('closeModal').addEventListener('click', closePremiumModal);
+  premiumModal.addEventListener('click', (e)=>{ if(e.target===premiumModal) closePremiumModal(); });
+  document.getElementById('subscribeBtn').addEventListener('click', ()=>{
+    // Demo-mode subscription toggle. Wire this button to a real payment
+    // processor (e.g. Stripe Checkout) to charge $2.99/month for real.
+    state.premium = true;
+    saveState();
+    closePremiumModal();
+    unlockPremiumMethods();
+    renderUsageBanner();
+    showToast('👑 Welcome to Premium! Unlimited studying + AI Flashcards & Spaced Repetition unlocked.');
+  });
+  function unlockPremiumMethods(){
+    document.querySelectorAll('.method-card[data-premium="true"]').forEach(c=>{
+      c.classList.remove('locked');
+      const tag = c.querySelector('.premium-tag');
+      if(tag) tag.textContent = 'UNLOCKED';
+    });
+    document.getElementById('premiumNavBtn').textContent = '👑 Premium';
+  }
+
+  // ---------- Nav tab scrolling (fixes sticky header covering target sections) ----------
+  document.querySelectorAll('nav a[href^="#"]').forEach(link=>{
+    link.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const targetId = link.getAttribute('href').slice(1);
+      const target = document.getElementById(targetId);
+      if(!target) return;
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 0;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+      window.scrollTo({ top, behavior:'smooth' });
+    });
+  });
+
+  document.getElementById('quoteBox').textContent = `"${pickQuote()}"`;
+  renderTimer();
+  renderAll();
+  renderHomework();
+  renderStudyPanel();
+  if(state.premium) unlockPremiumMethods();
+  renderUsageBanner();
+  checkBadges();
+</script>
+</body>
+</html>
